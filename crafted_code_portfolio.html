@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crafted Code | Custom Websites</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #0f172a;
+      --bg2: #1e293b;
+      --card: rgba(255, 255, 255, 0.08);
+      --text: #f8fafc;
+      --muted: #cbd5e1;
+      --accent: #22c55e;
+      --accent2: #38bdf8;
+      --warning: #facc15;
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+      --radius: 24px;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(34, 197, 94, 0.25), transparent 30%),
+        radial-gradient(circle at top right, rgba(56, 189, 248, 0.22), transparent 30%),
+        linear-gradient(135deg, var(--bg), var(--bg2));
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .pixel-grid {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size: 42px 42px;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    header {
+      width: min(1120px, 92%);
+      margin: 0 auto;
+      padding: 24px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+    }
+
+    .logo-cube {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 25px rgba(34, 197, 94, 0.55);
+      position: relative;
+    }
+
+    .logo-cube::after {
+      content: "</>";
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: #052e16;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    nav {
+      display: flex;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    nav a:hover {
+      color: var(--text);
+    }
+
+    .hero {
+      width: min(1120px, 92%);
+      margin: 54px auto 0;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 42px;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 14px var(--accent);
+    }
+
+    h1 {
+      font-size: clamp(3rem, 7vw, 6rem);
+      line-height: 0.95;
+      letter-spacing: -4px;
+      margin-bottom: 22px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, var(--accent), var(--accent2), var(--warning));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      line-height: 1.7;
+      color: var(--muted);
+      max-width: 620px;
+      margin-bottom: 30px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .btn {
+      border: 0;
+      padding: 15px 20px;
+      border-radius: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #052e16;
+      box-shadow: 0 14px 35px rgba(34, 197, 94, 0.25);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .preview-card {
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      transform: rotate(2deg);
+    }
+
+    .window-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .circle {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #ef4444;
+    }
+
+    .circle:nth-child(2) { background: #facc15; }
+    .circle:nth-child(3) { background: #22c55e; }
+
+    .fake-site {
+      border-radius: 18px;
+      background: linear-gradient(135deg, #111827, #172554);
+      padding: 20px;
+      min-height: 360px;
+    }
+
+    .fake-nav,
+    .fake-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .fake-pill,
+    .fake-box,
+    .fake-line {
+      background: rgba(255, 255, 255, 0.13);
+      border-radius: 999px;
+    }
+
+    .fake-pill {
+      width: 90px;
+      height: 18px;
+    }
+
+    .fake-title {
+      width: 80%;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      margin: 42px 0 16px;
+    }
+
+    .fake-line {
+      height: 14px;
+      margin-bottom: 10px;
+    }
+
+    .fake-line.small { width: 60%; }
+
+    .fake-row {
+      margin-top: 34px;
+    }
+
+    .fake-box {
+      height: 100px;
+      flex: 1;
+      border-radius: 18px;
+    }
+
+    section {
+      width: min(1120px, 92%);
+      margin: 95px auto;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      margin-bottom: 14px;
+      letter-spacing: -2px;
+    }
+
+    .section-subtitle {
+      color: var(--muted);
+      font-size: 1.1rem;
+      line-height: 1.7;
+      max-width: 720px;
+      margin-bottom: 30px;
+    }
+
+    .services,
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(255, 255, 255, 0.11);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.18);
+      transition: 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      background: rgba(255, 255, 255, 0.11);
+    }
+
+    .icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+      background: rgba(34, 197, 94, 0.16);
+      color: var(--accent);
+      font-size: 1.4rem;
+      margin-bottom: 18px;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: 1.25rem;
+    }
+
+    .card p {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .project-img {
+      height: 150px;
+      border-radius: 18px;
+      margin-bottom: 18px;
+      background:
+        linear-gradient(135deg, rgba(34,197,94,0.9), rgba(56,189,248,0.9)),
+        repeating-linear-gradient(45deg, transparent 0 12px, rgba(255,255,255,0.08) 12px 24px);
+      display: grid;
+      place-items: center;
+      color: #052e16;
+      font-size: 2.4rem;
+      font-weight: 900;
+    }
+
+    .project-img.alt {
+      background: linear-gradient(135deg, #8b5cf6, #ec4899);
+      color: white;
+    }
+
+    .project-img.dark {
+      background: linear-gradient(135deg, #f97316, #facc15);
+      color: #451a03;
+    }
+
+    .about {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 26px;
+      align-items: stretch;
+    }
+
+    .profile-box {
+      min-height: 280px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+    }
+
+    .avatar {
+      width: 150px;
+      height: 150px;
+      border-radius: 36px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: grid;
+      place-items: center;
+      font-size: 4rem;
+      box-shadow: 0 0 40px rgba(56, 189, 248, 0.35);
+      margin: 0 auto 18px;
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .skill {
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.09);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .contact {
+      text-align: center;
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.16), rgba(56, 189, 248, 0.13));
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 32px;
+      padding: 50px 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .contact p {
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 650px;
+      margin: 0 auto 24px;
+    }
+
+    footer {
+      width: min(1120px, 92%);
+      margin: 0 auto;
+      padding: 34px 0;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    @media (max-width: 850px) {
+      nav {
+        display: none;
+      }
+
+      .hero,
+      .about {
+        grid-template-columns: 1fr;
+      }
+
+      .preview-card {
+        transform: none;
+      }
+
+      .services,
+      .projects {
+        grid-template-columns: 1fr;
+      }
+
+      footer {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="pixel-grid"></div>
+
+  <header>
+    <a href="#" class="logo">
+      <span class="logo-cube"></span>
+      <span>Crafted Code</span>
+    </a>
+
+    <nav>
+      <a href="#services">Services</a>
+      <a href="#projects">Projects</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <div class="badge"><span class="dot"></span> Custom websites for creators, gamers, and small businesses</div>
+        <h1>Websites that feel <span class="gradient-text">crafted</span>, not copied.</h1>
+        <p>
+          I build clean, custom websites with HTML, CSS, and JavaScript — perfect for portfolios,
+          small businesses, gaming communities, Minecraft servers, and creative projects.
+        </p>
+        <div class="buttons">
+          <a class="btn btn-primary" href="#projects">View Projects ⚒️</a>
+          <a class="btn btn-secondary" href="#contact">Start a Website</a>
+        </div>
+      </div>
+
+      <div class="preview-card">
+        <div class="window-bar">
+          <span class="circle"></span>
+          <span class="circle"></span>
+          <span class="circle"></span>
+        </div>
+        <div class="fake-site">
+          <div class="fake-nav">
+            <div class="fake-pill"></div>
+            <div class="fake-pill"></div>
+            <div class="fake-pill"></div>
+          </div>
+          <div class="fake-title"></div>
+          <div class="fake-line"></div>
+          <div class="fake-line small"></div>
+          <div class="fake-row">
+            <div class="fake-box"></div>
+            <div class="fake-box"></div>
+            <div class="fake-box"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services">
+      <h2 class="section-title">What I can build</h2>
+      <p class="section-subtitle">Starter websites, custom landing pages, portfolios, and stylish pages that actually look like they were made by a human instead of a sleepy toaster.</p>
+
+      <div class="services">
+        <article class="card">
+          <div class="icon">🎮</div>
+          <h3>Gaming & Server Sites</h3>
+          <p>Pages for Minecraft servers, gaming groups, clans, Discord communities, or game projects.</p>
+        </article>
+
+        <article class="card">
+          <div class="icon">🚀</div>
+          <h3>Landing Pages</h3>
+          <p>Clean one-page websites for small businesses, creators, events, products, or portfolios.</p>
+        </article>
+
+        <article class="card">
+          <div class="icon">🧰</div>
+          <h3>Custom Features</h3>
+          <p>Buttons, sections, image galleries, contact links, animations, responsive layouts, and more.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2 class="section-title">Example projects</h2>
+      <p class="section-subtitle">These can be replaced with your real projects, screenshots, or fake sample websites that show clients what you can do.</p>
+
+      <div class="projects">
+        <article class="card">
+          <div class="project-img">MC</div>
+          <h3>Minecraft Server Homepage</h3>
+          <p>A blocky, fun homepage with server info, rules, buttons, and community links.</p>
+        </article>
+
+        <article class="card">
+          <div class="project-img alt">UI</div>
+          <h3>Creator Portfolio</h3>
+          <p>A clean portfolio layout for artists, developers, YouTubers, or digital creators.</p>
+        </article>
+
+        <article class="card">
+          <div class="project-img dark">SHOP</div>
+          <h3>Small Business Page</h3>
+          <p>A simple business site with services, pricing, about section, and contact button.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="about" class="about">
+      <div class="card profile-box">
+        <div>
+          <div class="avatar">⚡</div>
+          <h3>Kolt</h3>
+          <p>Young developer. Creative builder. Website gremlin in training.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="section-title">About me</h2>
+        <p class="section-subtitle">
+          Hi, I’m Kolt. I’m a young developer who enjoys building websites, games, and creative digital projects.
+          I work with HTML, CSS, JavaScript, Python, and C#, and I like making websites that feel unique instead of boring.
+        </p>
+
+        <div class="skills">
+          <span class="skill">HTML</span>
+          <span class="skill">CSS</span>
+          <span class="skill">JavaScript</span>
+          <span class="skill">Python</span>
+          <span class="skill">C#</span>
+          <span class="skill">Game UI</span>
+          <span class="skill">Responsive Design</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <h2 class="section-title">Want a custom website?</h2>
+      <p>
+        Send me your idea, what pages you need, your style/colors, and any images or text you want included.
+        I can make starter websites, portfolios, landing pages, and creative custom pages.
+      </p>
+      <a class="btn btn-primary" href="mailto:your-email@example.com">Email Me</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Crafted Code. Built by Kolt.</p>
+    <p>HTML • CSS • JavaScript</p>
+  </footer>
+</body>
+</html>
