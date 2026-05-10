@@ -729,7 +729,7 @@
           <p class="form-note">Email: <strong id="emailText">Koltmaxwell2011@gmail.com</strong></p>
         </div>
 
-        <form class="email-card form" id="requestForm" onsubmit="sendRequestEmail(event)">
+        <form class="email-card form" id="requestForm" novalidate onsubmit="sendRequestEmail(event)">
           <div>
             <label for="package">Selected package</label>
             <select id="package" required>
@@ -772,7 +772,7 @@
           </div>
 
           <div class="buttons">
-            <button class="btn btn-primary" type="submit">Send Request Email</button>
+            <button class="btn btn-primary" type="submit">Create Email Draft</button>
             <button class="btn btn-secondary" type="button" onclick="clearForm()">Clear</button>
           </div>
 
@@ -796,43 +796,21 @@
       const toast = document.getElementById("toast");
       toast.textContent = message;
       toast.classList.add("show");
-      setTimeout(() => toast.classList.remove("show"), 1800);
+
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 1800);
     }
 
     function copyEmail() {
-      navigator.clipboard.writeText(email)
-        .then(() => showToast("Email copied!"))
-        .catch(() => showToast("Copy failed — email is on the page."));
-    }
-
-    function sendRequestEmail(event) {
-      event.preventDefault();
-
-      const name = document.getElementById("name").value.trim();
-      const packageChoice = document.getElementById("package").value;
-      const type = document.getElementById("type").value;
-      const budget = document.getElementById("budget").value.trim();
-      const colors = document.getElementById("colors").value.trim();
-      const message = document.getElementById("message").value.trim();
-
-      const subject = encodeURIComponent("Website Request from " + name);
-      const body = encodeURIComponent(
-        "Hi Kolt,\n\n" +
-        "I want a custom website.
-
-" +
-        "Selected package: " + packageChoice + "
-" +
-        "Name: " + name + "
-" +
-        "Website type: " + type + "\n" +
-        "Budget: " + (budget || "Not sure yet") + "\n" +
-        "Style/colors: " + (colors || "Not sure yet") + "\n\n" +
-        "Project details:\n" + message + "\n\n" +
-        "Thanks!"
-      );
-
-      window.location.href = "mailto:" + email + "?subject=" + subject + "&body=" + body;
+      navigator.clipboard
+        .writeText(email)
+        .then(() => {
+          showToast("Email copied!");
+        })
+        .catch(() => {
+          showToast("Copy failed — email is on the page.");
+        });
     }
 
     function choosePackage(packageName) {
@@ -845,7 +823,12 @@
       }
 
       packageSelect.value = packageName;
-      requestForm.scrollIntoView({ behavior: "smooth", block: "center" });
+
+      requestForm.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+
       showToast(packageName + " selected!");
     }
 
@@ -855,11 +838,63 @@
       });
     });
 
+    function sendRequestEmail(event) {
+      event.preventDefault();
+
+      const nameInput = document.getElementById("name");
+      const messageInput = document.getElementById("message");
+
+      const name = nameInput.value.trim();
+      const packageChoice = document.getElementById("package").value;
+      const type = document.getElementById("type").value;
+      const budget = document.getElementById("budget").value.trim();
+      const colors = document.getElementById("colors").value.trim();
+      const message = messageInput.value.trim();
+
+      if (!name) {
+        showToast("Please add your name first.");
+        nameInput.focus();
+        return;
+      }
+
+      if (!message) {
+        showToast("Please describe the website first.");
+        messageInput.focus();
+        return;
+      }
+
+      const subject = encodeURIComponent(
+        "Website Request from " + name
+      );
+
+      const body = encodeURIComponent(
+        "Hi Kolt,\n\n" +
+        "I want a custom website.\n\n" +
+        "Selected package: " + packageChoice + "\n" +
+        "Website type: " + type + "\n" +
+        "Budget: " + (budget || "Not sure yet") + "\n" +
+        "Style/colors: " + (colors || "Not sure yet") + "\n\n" +
+        "Project details:\n" + message + "\n\n" +
+        "Thanks!"
+      );
+
+      window.location.href =
+        "mailto:" +
+        email +
+        "?subject=" +
+        subject +
+        "&body=" +
+        body;
+
+      showToast("Opening your email app...");
+    }
+
     function clearForm() {
       document.getElementById("name").value = "";
       document.getElementById("budget").value = "";
       document.getElementById("colors").value = "";
       document.getElementById("message").value = "";
+
       showToast("Form cleared!");
     }
   </script>
