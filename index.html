@@ -907,35 +907,30 @@
     });
 
     function sendRequestEmail(event) {
-      event.preventDefault();
+  event.preventDefault();
 
-      const nameInput = document.getElementById("name");
-      const messageInput = document.getElementById("message");
+  const name = document.getElementById("name").value.trim();
+  const packageChoice = document.getElementById("package").value;
+  const type = document.getElementById("type").value;
+  const budget = document.getElementById("budget").value.trim();
+  const colors = document.getElementById("colors").value.trim();
+  const message = document.getElementById("message").value.trim();
 
-      const name = nameInput.value.trim();
-      const packageChoice = document.getElementById("package").value;
-      const type = document.getElementById("type").value;
-      const budget = document.getElementById("budget").value.trim();
-      const colors = document.getElementById("colors").value.trim();
-      const message = messageInput.value.trim();
+  if (!name) {
+    showToast("Please add your name first.");
+    return;
+  }
 
-      if (!name) {
-        showToast("Please add your name first.");
-        nameInput.focus();
-        return;
-      }
+  if (!message) {
+    showToast("Please describe the website.");
+    return;
+  }
 
-      if (!message) {
-        showToast("Please describe the website first.");
-        messageInput.focus();
-        return;
-      }
+  const subject = encodeURIComponent(
+    `Website Request from ${name}`
+  );
 
-      const subject = encodeURIComponent(
-        "Website Request from " + name
-      );
-
-      const body = encodeURIComponent(`
+  const body = encodeURIComponent(`
 Hi Kolt,
 
 I want a custom website.
@@ -949,12 +944,18 @@ Project details:
 ${message}
 
 Thanks!
-`);
+  `);
 
-      window.open(
-  `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${subject}&body=${body}`,
-  "_blank"
-);
+  const gmailURL =
+    `https://mail.google.com/mail/?view=cm&fs=1` +
+    `&to=${email}` +
+    `&su=${subject}` +
+    `&body=${body}`;
+
+  window.open(gmailURL, "_blank");
+
+  showToast("Opening Gmail...");
+}
 
     function clearForm() {
       document.getElementById("name").value = "";
