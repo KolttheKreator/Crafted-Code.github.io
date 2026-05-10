@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kolt's Website Kreator | Custom Websites</title>
+  <title>Crafted Code | Custom Websites</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1' y1='0' y2='1'%3E%3Cstop stop-color='%2322c55e'/%3E%3Cstop offset='1' stop-color='%2338bdf8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='22' fill='url(%23g)'/%3E%3Ctext x='50' y='58' font-size='42' text-anchor='middle' fill='%23052e16' font-family='Arial' font-weight='bold'%3E%26lt;/%26gt;%3C/text%3E%3C/svg%3E" />
   <style>
     * {
@@ -474,7 +474,7 @@
   <header>
     <a href="#" class="logo">
       <span class="logo-cube"></span>
-      <span>Kolt's Website Kreator</span>
+      <span>Crafted Code</span>
     </a>
 
     <nav>
@@ -492,7 +492,7 @@
         <div class="badge"><span class="dot"></span> Custom websites for creators, gaming communities, and small businesses</div>
         <h1>Custom websites designed for your style.</h1>
         <p>
-          I build custom websites for portfolios, creators, gaming communities, Minecraft servers, and small businesses.
+          I build custom websites for portfolios, creators, creators, startups, gaming communities, and small businesses.
         </p>
         <div class="buttons">
           <a class="btn btn-primary" href="#contact">Get a Website</a>
@@ -532,7 +532,7 @@
         <article class="card">
           <div class="icon">🎮</div>
           <h3>Gaming & Server Sites</h3>
-          <p>Pages for Minecraft servers, gaming groups, clans, Discord communities, or game projects.</p>
+          <p>Pages for gaming groups, creators, online communities, startups, or digital projects.</p>
         </article>
 
         <article class="card">
@@ -557,7 +557,7 @@
         <article class="card">
           <div class="project-img">MC</div>
           <h3>Minecraft Server Homepage</h3>
-          <p>A custom homepage for a Minecraft server or gaming community.</p>
+          <p>A custom homepage for a gaming community or online group.</p>
         </article>
 
         <article class="card">
@@ -569,7 +569,7 @@
         <article class="card">
           <div class="project-img dark">SHOP</div>
           <h3>Small Business Page</h3>
-          <p>A website for your business. Much like the one your on now!</p>
+          <p>A clean website for a small business with contact and information sections.</p>
         </article>
       </div>
     </section>
@@ -705,7 +705,7 @@
         </article>
         <article class="card">
           <h3>Gamers</h3>
-          <p>Gaming team pages, Minecraft server pages, game project pages, and community sites.</p>
+          <p>Gaming team pages, community websites, game project pages, and community sites.</p>
         </article>
         <article class="card">
           <h3>Small businesses</h3>
@@ -797,8 +797,8 @@
               <label for="type">Website type</label>
               <select id="type" required>
                 <option value="Portfolio website">Portfolio website</option>
-                <option value="Gaming / Minecraft server website">
-                  Gaming / Minecraft server website
+                <option value="Gaming community website">
+                  Gaming community website
                 </option>
                 <option value="Small business website">Small business website</option>
                 <option value="Landing page">Landing page</option>
@@ -818,7 +818,7 @@
               <input
                 id="colors"
                 type="text"
-                placeholder="Minecrafty, blue/green, clean, etc."
+                placeholder="Modern, colorful, dark theme, clean, etc."
               >
             </div>
           </div>
@@ -853,7 +853,7 @@
   <div class="toast" id="toast">Copied!</div>
 
   <footer>
-    <p>© 2026 Kolt's Website Kreator. Built by Kolt.</p>
+    <p>© 2026 Crafted Code. Built by Kolt.</p>
     <p>HTML • CSS • JavaScript</p>
   </footer>
 
@@ -862,6 +862,7 @@
 
     function showToast(message) {
       const toast = document.getElementById("toast");
+
       toast.textContent = message;
       toast.classList.add("show");
 
@@ -877,7 +878,7 @@
           showToast("Email copied!");
         })
         .catch(() => {
-          showToast("Copy failed — email is on the page.");
+          showToast("Copy failed.");
         });
     }
 
@@ -886,7 +887,7 @@
       const requestForm = document.getElementById("requestForm");
 
       if (!packageSelect || !requestForm) {
-        showToast("Package form not found yet.");
+        showToast("Package form not found.");
         return;
       }
 
@@ -897,7 +898,7 @@
         block: "center"
       });
 
-      showToast(packageName + " selected!");
+      showToast(`${packageName} selected!`);
     }
 
     document.querySelectorAll(".package-btn").forEach((button) => {
@@ -907,30 +908,28 @@
     });
 
     function sendRequestEmail(event) {
-  event.preventDefault();
+      event.preventDefault();
 
-  const name = document.getElementById("name").value.trim();
-  const packageChoice = document.getElementById("package").value;
-  const type = document.getElementById("type").value;
-  const budget = document.getElementById("budget").value.trim();
-  const colors = document.getElementById("colors").value.trim();
-  const message = document.getElementById("message").value.trim();
+      const name = document.getElementById("name").value.trim();
+      const packageChoice = document.getElementById("package").value;
+      const type = document.getElementById("type").value;
+      const budget = document.getElementById("budget").value.trim();
+      const colors = document.getElementById("colors").value.trim();
+      const message = document.getElementById("message").value.trim();
 
-  if (!name) {
-    showToast("Please add your name first.");
-    return;
-  }
+      if (!name) {
+        showToast("Please add your name first.");
+        return;
+      }
 
-  if (!message) {
-    showToast("Please describe the website.");
-    return;
-  }
+      if (!message) {
+        showToast("Please describe the website first.");
+        return;
+      }
 
-  const subject = encodeURIComponent(
-    `Website Request from ${name}`
-  );
+      const subject = encodeURIComponent(`Website Request from ${name}`);
 
-  const body = encodeURIComponent(`
+      const body = encodeURIComponent(`
 Hi Kolt,
 
 I want a custom website.
@@ -944,18 +943,13 @@ Project details:
 ${message}
 
 Thanks!
-  `);
+      `);
 
-  const gmailURL =
-    `https://mail.google.com/mail/?view=cm&fs=1` +
-    `&to=${email}` +
-    `&su=${subject}` +
-    `&body=${body}`;
+      const gmailURL = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}&su=${subject}&body=${body}`;
 
-  window.open(gmailURL, "_blank");
-
-  showToast("Opening Gmail...");
-}
+      window.open(gmailURL, "_blank");
+      showToast("Opening Gmail...");
+    }
 
     function clearForm() {
       document.getElementById("name").value = "";
