@@ -584,6 +584,7 @@
             <li>Mobile friendly</li>
             <li>Basic sections</li>
           </ul>
+          <button class="btn btn-secondary" type="button" onclick="choosePackage('Basic - $25+')">Choose Basic</button>
         </article>
 
         <article class="card featured">
@@ -595,6 +596,7 @@
             <li>Custom colors</li>
             <li>Contact buttons</li>
           </ul>
+          <button class="btn btn-primary" type="button" onclick="choosePackage('Standard - $50+')">Choose Standard</button>
         </article>
 
         <article class="card">
@@ -606,6 +608,7 @@
             <li>Extra features</li>
             <li>Project-based price</li>
           </ul>
+          <button class="btn btn-secondary" type="button" onclick="choosePackage('Custom - Ask')">Choose Custom</button>
         </article>
       </div>
     </section>
@@ -721,7 +724,15 @@
           <p class="form-note">Email: <strong id="emailText">Koltmaxwell2011@gmail.com</strong></p>
         </div>
 
-        <form class="email-card form" onsubmit="sendRequestEmail(event)">
+        <form class="email-card form" id="requestForm" onsubmit="sendRequestEmail(event)">
+          <div>
+            <label for="package">Selected package</label>
+            <select id="package" required>
+              <option value="Basic - $25+">Basic - $25+</option>
+              <option value="Standard - $50+">Standard - $50+</option>
+              <option value="Custom - Ask">Custom - Ask</option>
+            </select>
+          </div>
           <div class="form-grid">
             <div>
               <label for="name">Your name</label>
@@ -793,6 +804,7 @@
       event.preventDefault();
 
       const name = document.getElementById("name").value.trim();
+      const packageChoice = document.getElementById("package").value;
       const type = document.getElementById("type").value;
       const budget = document.getElementById("budget").value.trim();
       const colors = document.getElementById("colors").value.trim();
@@ -801,8 +813,13 @@
       const subject = encodeURIComponent("Website Request from " + name);
       const body = encodeURIComponent(
         "Hi Kolt,\n\n" +
-        "I want a custom website.\n\n" +
-        "Name: " + name + "\n" +
+        "I want a custom website.
+
+" +
+        "Selected package: " + packageChoice + "
+" +
+        "Name: " + name + "
+" +
         "Website type: " + type + "\n" +
         "Budget: " + (budget || "Not sure yet") + "\n" +
         "Style/colors: " + (colors || "Not sure yet") + "\n\n" +
@@ -811,6 +828,12 @@
       );
 
       window.location.href = "mailto:" + email + "?subject=" + subject + "&body=" + body;
+    }
+
+    function choosePackage(packageName) {
+      document.getElementById("package").value = packageName;
+      document.getElementById("requestForm").scrollIntoView({ behavior: "smooth", block: "center" });
+      showToast(packageName + " selected!");
     }
 
     function clearForm() {
