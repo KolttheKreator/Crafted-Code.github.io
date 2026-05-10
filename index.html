@@ -192,6 +192,11 @@
 
     .btn:hover { transform: translateY(-3px); }
 
+    .package-btn {
+      margin-top: 18px;
+      width: 100%;
+    }
+
     .preview-card {
       background: rgba(15, 23, 42, 0.75);
       border: 1px solid rgba(255, 255, 255, 0.12);
@@ -584,7 +589,7 @@
             <li>Mobile friendly</li>
             <li>Basic sections</li>
           </ul>
-          <button class="btn btn-secondary" type="button" onclick="choosePackage('Basic - $25+')">Choose Basic</button>
+          <button class="btn btn-secondary package-btn" type="button" data-package="Basic - $25+">Choose Basic</button>
         </article>
 
         <article class="card featured">
@@ -596,7 +601,7 @@
             <li>Custom colors</li>
             <li>Contact buttons</li>
           </ul>
-          <button class="btn btn-primary" type="button" onclick="choosePackage('Standard - $50+')">Choose Standard</button>
+          <button class="btn btn-primary package-btn" type="button" data-package="Standard - $50+">Choose Standard</button>
         </article>
 
         <article class="card">
@@ -608,7 +613,7 @@
             <li>Extra features</li>
             <li>Project-based price</li>
           </ul>
-          <button class="btn btn-secondary" type="button" onclick="choosePackage('Custom - Ask')">Choose Custom</button>
+          <button class="btn btn-secondary package-btn" type="button" data-package="Custom - Ask">Choose Custom</button>
         </article>
       </div>
     </section>
@@ -831,10 +836,24 @@
     }
 
     function choosePackage(packageName) {
-      document.getElementById("package").value = packageName;
-      document.getElementById("requestForm").scrollIntoView({ behavior: "smooth", block: "center" });
+      const packageSelect = document.getElementById("package");
+      const requestForm = document.getElementById("requestForm");
+
+      if (!packageSelect || !requestForm) {
+        showToast("Package form not found yet.");
+        return;
+      }
+
+      packageSelect.value = packageName;
+      requestForm.scrollIntoView({ behavior: "smooth", block: "center" });
       showToast(packageName + " selected!");
     }
+
+    document.querySelectorAll(".package-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        choosePackage(button.dataset.package);
+      });
+    });
 
     function clearForm() {
       document.getElementById("name").value = "";
