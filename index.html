@@ -770,92 +770,130 @@
   id="requestForm"
   action="https://formsubmit.co/ajax/Koltmaxwell2011@gmail.com"
   method="POST"
-  
 >
-        >
-          <input type="hidden" name="_subject" value="New Website Request!">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_captcha" value="false">
-          <div id="successMessage" class="email-card" style="display: none;">
+
+  <input type="hidden" name="_subject" value="New Website Request!">
+  <input type="hidden" name="_template" value="table">
+  <input type="hidden" name="_captcha" value="false">
+
+  <div>
+    <label for="package">Selected package</label>
+
+    <select id="package" name="Package" required>
+      <option value="Basic - $25+">Basic - $25+</option>
+      <option value="Standard - $50+">Standard - $50+</option>
+      <option value="Custom - Ask">Custom - Ask</option>
+    </select>
+  </div>
+
+  <div class="form-grid">
+    <div>
+      <label for="name">Your name</label>
+
+      <input
+        id="name"
+        name="Name"
+        type="text"
+        placeholder="Your name"
+        required
+      >
+    </div>
+
+    <div>
+      <label for="type">Website type</label>
+
+      <select id="type" name="Website type" required>
+        <option value="Portfolio website">Portfolio website</option>
+        <option value="Gaming community website">
+          Gaming community website
+        </option>
+        <option value="Small business website">
+          Small business website
+        </option>
+        <option value="Landing page">
+          Landing page
+        </option>
+        <option value="Other custom website">
+          Other custom website
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-grid">
+    <div>
+      <label for="budget">Budget</label>
+
+      <input
+        id="budget"
+        name="Budget"
+        type="text"
+        placeholder="$25, $50, etc."
+      >
+    </div>
+
+    <div>
+      <label for="colors">Style/colors</label>
+
+      <input
+        id="colors"
+        name="Style/colors"
+        type="text"
+        placeholder="Modern, colorful, dark theme, clean, etc."
+      >
+    </div>
+  </div>
+
+  <div>
+    <label for="message">Project details</label>
+
+    <textarea
+      id="message"
+      name="Project details"
+      placeholder="Tell me what you want on the website..."
+      required
+    ></textarea>
+  </div>
+
+  <div class="buttons">
+    <button class="btn btn-primary" type="submit">
+      Send Website Request
+    </button>
+
+    <button
+      class="btn btn-secondary"
+      type="button"
+      onclick="clearForm()"
+    >
+      Clear
+    </button>
+  </div>
+
+  <p class="form-note">
+    This sends your request directly to my email using FormSubmit.
+  </p>
+</form>
+
+<div
+  id="successMessage"
+  class="email-card"
+  style="display: none;"
+>
   <h3>✅ Request Sent!</h3>
+
   <p>
-    Your website request was sent successfully. I'll review it and get back to you soon.
+    Your website request was sent successfully.
+    I'll review it and get back to you soon.
   </p>
 
-  <button class="btn btn-primary" type="button" onclick="location.reload()">
+  <button
+    class="btn btn-primary"
+    type="button"
+    onclick="location.reload()"
+  >
     Send Another Request
   </button>
 </div>
->
-
-          <div>
-            <label for="package">Selected package</label>
-            <select id="package" name="Package" required>
-              <option value="Basic - $25+">Basic - $25+</option>
-              <option value="Standard - $50+">Standard - $50+</option>
-              <option value="Custom - Ask">Custom - Ask</option>
-            </select>
-          </div>
-
-          <div class="form-grid">
-            <div>
-              <label for="name">Your name</label>
-              <input id="name" name="Name" type="text" placeholder="Your name" required>
-            </div>
-
-            <div>
-              <label for="type">Website type</label>
-              <select id="type" name="Website type" required>
-                <option value="Portfolio website">Portfolio website</option>
-                <option value="Gaming community website">Gaming community website</option>
-                <option value="Small business website">Small business website</option>
-                <option value="Landing page">Landing page</option>
-                <option value="Other custom website">Other custom website</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-grid">
-            <div>
-              <label for="budget">Budget</label>
-              <input id="budget" name="Budget" type="text" placeholder="$25, $50, etc.">
-            </div>
-
-            <div>
-              <label for="colors">Style/colors</label>
-              <input
-                id="colors"
-                name="Style/colors"
-                type="text"
-                placeholder="Modern, colorful, dark theme, clean, etc."
-              >
-            </div>
-          </div>
-
-          <div>
-            <label for="message">Project details</label>
-            <textarea
-              id="message"
-              name="Project details"
-              placeholder="Tell me what you want on the website..."
-              required
-            ></textarea>
-          </div>
-
-          <div class="buttons">
-            <button class="btn btn-primary" type="submit">
-              Send Website Request
-            </button>
-
-            <button class="btn btn-secondary" type="button" onclick="clearForm()">
-              Clear
-            </button>
-          </div>
-
-          <p class="form-note">
-  This sends your request directly to my email using FormSubmit.
-</p>
-</form>
       </div>
     </section>
   </main>
